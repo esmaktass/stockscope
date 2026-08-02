@@ -2,6 +2,10 @@
 
 StockScope is a stock market dashboard built with Python.
 
+## Screenshot
+
+![StockScope Dashboard](assets/dashboard.png)
+
 ## Features
 
 - Fetch stock data using Yahoo Finance API
