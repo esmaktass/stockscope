@@ -1,4 +1,5 @@
 import streamlit as st
+import pandas as pd
 
 from data import get_stock_data
 from indicators import calculate_indicators
@@ -19,13 +20,19 @@ ticker = st.text_input(
     value="AAPL"
 )
 
+period = st.selectbox(
+    "Analysis Period",
+    options=["1mo", "3mo", "6mo", "1y", "2y", "5y"],
+    index=2
+)
+
 analyze_button = st.button("Analyze Stock")
 
 if analyze_button:
     clean_ticker = ticker.strip().upper()
 
     with st.spinner("Loading market data..."):
-        data = get_stock_data(clean_ticker)
+        data = get_stock_data(clean_ticker, period)
 
     if data is None:
         st.error(
@@ -46,6 +53,18 @@ if analyze_button:
 
     latest_ma20 = data["MA20"].iloc[-1]
     latest_ma50 = data["MA50"].iloc[-1]
+    
+    ma20_display = (
+      f"{latest_ma20:.2f}"
+      if pd.notna(latest_ma20)
+      else "Not enough data"
+    )
+
+    ma50_display = (
+      f"{latest_ma50:.2f}"
+      if pd.notna(latest_ma50)
+      else "Not enough data"
+    )
 
     col1, col2, col3, col4 = st.columns(4)
 
@@ -61,13 +80,13 @@ if analyze_button:
     )
 
     col3.metric(
-        "MA20",
-        f"{latest_ma20:.2f}"
+      "MA20",
+      ma20_display
     )
 
     col4.metric(
-        "MA50",
-        f"{latest_ma50:.2f}"
+      "MA50",
+      ma50_display
     )
 
     price_chart = create_price_chart(
