@@ -12,7 +12,7 @@ from indicators import calculate_indicators
 
 
 def format_large_number(value):
-    if value is None:
+    if value is None or pd.isna(value):
         return "N/A"
 
     if value >= 1_000_000_000_000:
@@ -28,17 +28,22 @@ def format_large_number(value):
 
 
 def format_number(value):
-    if value is None:
+    if value is None or pd.isna(value):
         return "N/A"
 
     return f"{value:.2f}"
 
 
-def format_percentage(value):
-    if value is None:
+def format_dividend_yield(value):
+    if value is None or pd.isna(value):
         return "N/A"
 
-    return f"{value * 100:.2f}%"
+    # yfinance bazı sembollerde değeri 0.35,
+    # bazılarında 0.0035 benzeri biçimde döndürebilir.
+    if value < 0.1:
+        value *= 100
+
+    return f"{value:.2f}%"
 
 
 st.set_page_config(
@@ -78,6 +83,10 @@ analyze_button = st.button(
 if analyze_button:
     clean_ticker = ticker.strip().upper()
 
+    if not clean_ticker:
+        st.error("Please enter a ticker symbol.")
+        st.stop()
+
     with st.spinner("Loading market data..."):
         data = get_stock_data(clean_ticker, period)
         company_info = get_company_info(clean_ticker)
@@ -89,9 +98,12 @@ if analyze_button:
         )
         st.stop()
 
+    if company_info is None:
+        company_info = {}
+
     data = calculate_indicators(data)
 
-    company_name = company_info.get("name", clean_ticker)
+    company_name = company_info.get("name") or clean_ticker
     sector = company_info.get("sector") or "N/A"
     industry = company_info.get("industry") or "N/A"
     currency = company_info.get("currency") or ""
@@ -131,17 +143,19 @@ if analyze_button:
         else "Not enough data"
     )
 
+    currency_suffix = f" {currency}" if currency else ""
+
     col1, col2, col3, col4, col5 = st.columns(5)
 
     col1.metric(
         "Current Price",
-        f"{current_price:.2f} {currency}".strip(),
+        f"{current_price:.2f}{currency_suffix}",
         f"{daily_change_percent:.2f}%",
     )
 
     col2.metric(
         "Daily Change",
-        f"{daily_change:.2f} {currency}".strip(),
+        f"{daily_change:.2f}{currency_suffix}",
     )
 
     col3.metric(
@@ -193,7 +207,7 @@ if analyze_button:
 
     fund_col5.metric(
         "Dividend Yield",
-        format_percentage(
+        format_dividend_yield(
             company_info.get("dividend_yield")
         ),
     )
@@ -211,7 +225,7 @@ if analyze_button:
 
     st.plotly_chart(
         price_chart,
-        use_container_width=True,
+        width="stretch",
     )
 
     volume_chart = create_volume_chart(
@@ -221,7 +235,7 @@ if analyze_button:
 
     st.plotly_chart(
         volume_chart,
-        use_container_width=True,
+        width="stretch",
     )
 
     rsi_chart = create_rsi_chart(
@@ -231,5 +245,5 @@ if analyze_button:
 
     st.plotly_chart(
         rsi_chart,
-        use_container_width=True,
+        width="stretch",
     )
