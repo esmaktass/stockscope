@@ -27,8 +27,9 @@ StockScope is a stock market dashboard built with Python.
 
 ## Planned Features
 
-- Interactive charts with Plotly
-- Streamlit dashboard
-- Moving Averages (MA20 / MA50)
-- RSI Indicator
+- RSI indicator
+- MACD indicator
+- Bollinger Bands
 - Multiple stock comparison
+- Company fundamentals
+- Portfolio tracking
