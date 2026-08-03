@@ -1,15 +1,19 @@
-import streamlit as st
 import pandas as pd
+import streamlit as st
 
+from charts import (
+    create_candlestick_chart,
+    create_price_chart,
+    create_volume_chart,
+)
 from data import get_stock_data
 from indicators import calculate_indicators
-from charts import create_price_chart
 
 
 st.set_page_config(
     page_title="StockScope",
     page_icon="📈",
-    layout="wide"
+    layout="wide",
 )
 
 st.title("StockScope")
@@ -17,13 +21,18 @@ st.caption("Interactive stock market analysis dashboard")
 
 ticker = st.text_input(
     "Ticker Symbol",
-    value="AAPL"
+    value="AAPL",
 )
 
 period = st.selectbox(
     "Analysis Period",
     options=["1mo", "3mo", "6mo", "1y", "2y", "5y"],
-    index=2
+    index=2,
+)
+
+chart_type = st.selectbox(
+    "Chart Type",
+    options=["Line", "Candlestick"],
 )
 
 analyze_button = st.button("Analyze Stock")
@@ -53,17 +62,17 @@ if analyze_button:
 
     latest_ma20 = data["MA20"].iloc[-1]
     latest_ma50 = data["MA50"].iloc[-1]
-    
+
     ma20_display = (
-      f"{latest_ma20:.2f}"
-      if pd.notna(latest_ma20)
-      else "Not enough data"
+        f"{latest_ma20:.2f}"
+        if pd.notna(latest_ma20)
+        else "Not enough data"
     )
 
     ma50_display = (
-      f"{latest_ma50:.2f}"
-      if pd.notna(latest_ma50)
-      else "Not enough data"
+        f"{latest_ma50:.2f}"
+        if pd.notna(latest_ma50)
+        else "Not enough data"
     )
 
     col1, col2, col3, col4 = st.columns(4)
@@ -71,30 +80,46 @@ if analyze_button:
     col1.metric(
         "Current Price",
         f"{current_price:.2f}",
-        f"{daily_change_percent:.2f}%"
+        f"{daily_change_percent:.2f}%",
     )
 
     col2.metric(
         "Daily Change",
-        f"{daily_change:.2f}"
+        f"{daily_change:.2f}",
     )
 
     col3.metric(
-      "MA20",
-      ma20_display
+        "MA20",
+        ma20_display,
     )
 
     col4.metric(
-      "MA50",
-      ma50_display
+        "MA50",
+        ma50_display,
     )
 
-    price_chart = create_price_chart(
-        data,
-        clean_ticker
-    )
+    if chart_type == "Candlestick":
+        price_chart = create_candlestick_chart(
+            data,
+            clean_ticker,
+        )
+    else:
+        price_chart = create_price_chart(
+            data,
+            clean_ticker,
+        )
 
     st.plotly_chart(
         price_chart,
-        use_container_width=True
+        use_container_width=True,
+    )
+
+    volume_chart = create_volume_chart(
+        data,
+        clean_ticker,
+    )
+
+    st.plotly_chart(
+        volume_chart,
+        use_container_width=True,
     )
