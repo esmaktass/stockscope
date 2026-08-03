@@ -7,8 +7,38 @@ from charts import (
     create_rsi_chart,
     create_volume_chart,
 )
-from data import get_stock_data
+from data import get_company_info, get_stock_data
 from indicators import calculate_indicators
+
+
+def format_large_number(value):
+    if value is None:
+        return "N/A"
+
+    if value >= 1_000_000_000_000:
+        return f"{value / 1_000_000_000_000:.2f}T"
+
+    if value >= 1_000_000_000:
+        return f"{value / 1_000_000_000:.2f}B"
+
+    if value >= 1_000_000:
+        return f"{value / 1_000_000:.2f}M"
+
+    return f"{value:,.0f}"
+
+
+def format_number(value):
+    if value is None:
+        return "N/A"
+
+    return f"{value:.2f}"
+
+
+def format_percentage(value):
+    if value is None:
+        return "N/A"
+
+    return f"{value * 100:.2f}%"
 
 
 st.set_page_config(
@@ -19,8 +49,8 @@ st.set_page_config(
 
 st.title("📈 StockScope")
 st.caption(
-    "Explore historical prices, moving averages "
-    "and trading volume through an interactive dashboard."
+    "Explore historical prices, moving averages, momentum "
+    "and company fundamentals through an interactive dashboard."
 )
 
 ticker = st.text_input(
@@ -50,6 +80,7 @@ if analyze_button:
 
     with st.spinner("Loading market data..."):
         data = get_stock_data(clean_ticker, period)
+        company_info = get_company_info(clean_ticker)
 
     if data is None:
         st.error(
@@ -59,6 +90,16 @@ if analyze_button:
         st.stop()
 
     data = calculate_indicators(data)
+
+    company_name = company_info.get("name", clean_ticker)
+    sector = company_info.get("sector") or "N/A"
+    industry = company_info.get("industry") or "N/A"
+    currency = company_info.get("currency") or ""
+
+    st.subheader(company_name)
+    st.caption(
+        f"{clean_ticker} · {sector} · {industry}"
+    )
 
     current_price = data["Close"].iloc[-1]
     previous_price = data["Close"].iloc[-2]
@@ -72,12 +113,6 @@ if analyze_button:
     latest_ma50 = data["MA50"].iloc[-1]
     latest_rsi = data["RSI"].iloc[-1]
 
-    rsi_display = (
-    f"{latest_rsi:.2f}"
-    if pd.notna(latest_rsi)
-    else "Not enough data"
-    )
-
     ma20_display = (
         f"{latest_ma20:.2f}"
         if pd.notna(latest_ma20)
@@ -90,17 +125,23 @@ if analyze_button:
         else "Not enough data"
     )
 
+    rsi_display = (
+        f"{latest_rsi:.2f}"
+        if pd.notna(latest_rsi)
+        else "Not enough data"
+    )
+
     col1, col2, col3, col4, col5 = st.columns(5)
 
     col1.metric(
         "Current Price",
-        f"{current_price:.2f}",
+        f"{current_price:.2f} {currency}".strip(),
         f"{daily_change_percent:.2f}%",
     )
 
     col2.metric(
         "Daily Change",
-        f"{daily_change:.2f}",
+        f"{daily_change:.2f} {currency}".strip(),
     )
 
     col3.metric(
@@ -114,8 +155,47 @@ if analyze_button:
     )
 
     col5.metric(
-    "RSI (14)",
-    rsi_display
+        "RSI (14)",
+        rsi_display,
+    )
+
+    st.subheader("Company Fundamentals")
+
+    fund_col1, fund_col2, fund_col3, fund_col4, fund_col5 = st.columns(5)
+
+    fund_col1.metric(
+        "Market Cap",
+        format_large_number(
+            company_info.get("market_cap")
+        ),
+    )
+
+    fund_col2.metric(
+        "Trailing P/E",
+        format_number(
+            company_info.get("trailing_pe")
+        ),
+    )
+
+    fund_col3.metric(
+        "EPS",
+        format_number(
+            company_info.get("eps")
+        ),
+    )
+
+    fund_col4.metric(
+        "Beta",
+        format_number(
+            company_info.get("beta")
+        ),
+    )
+
+    fund_col5.metric(
+        "Dividend Yield",
+        format_percentage(
+            company_info.get("dividend_yield")
+        ),
     )
 
     if chart_type == "Candlestick":
@@ -145,11 +225,11 @@ if analyze_button:
     )
 
     rsi_chart = create_rsi_chart(
-       data,
-       clean_ticker
+        data,
+        clean_ticker,
     )
 
     st.plotly_chart(
-       rsi_chart,
-       use_container_width=True
+        rsi_chart,
+        use_container_width=True,
     )
