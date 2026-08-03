@@ -33,6 +33,8 @@ StockScope is a stock market dashboard built with Python.
 - Display company name, sector and industry
 - Show market capitalization, P/E, EPS, beta and dividend yield
 - Display ticker currency in price metrics
+- Visualize Bollinger Bands
+- Calculate MACD, signal line and histogram
 
 ## Technologies
 
