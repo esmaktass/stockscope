@@ -102,3 +102,41 @@ def create_volume_chart(data, ticker):
     )
 
     return fig
+
+def create_rsi_chart(data, ticker):
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=data.index,
+            y=data["RSI"],
+            mode="lines",
+            name="RSI (14)"
+        )
+    )
+
+    fig.add_hline(
+        y=70,
+        line_dash="dash",
+        annotation_text="Overbought"
+    )
+
+    fig.add_hline(
+        y=30,
+        line_dash="dash",
+        annotation_text="Oversold"
+    )
+
+    fig.update_layout(
+        title=f"{ticker} Relative Strength Index",
+        xaxis_title="Date",
+        yaxis_title="RSI",
+        hovermode="x unified",
+        showlegend=False
+    )
+
+    fig.update_yaxes(
+        range=[0, 100]
+    )
+
+    return fig

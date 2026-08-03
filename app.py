@@ -4,6 +4,7 @@ import streamlit as st
 from charts import (
     create_candlestick_chart,
     create_price_chart,
+    create_rsi_chart,
     create_volume_chart,
 )
 from data import get_stock_data
@@ -69,6 +70,13 @@ if analyze_button:
 
     latest_ma20 = data["MA20"].iloc[-1]
     latest_ma50 = data["MA50"].iloc[-1]
+    latest_rsi = data["RSI"].iloc[-1]
+
+    rsi_display = (
+    f"{latest_rsi:.2f}"
+    if pd.notna(latest_rsi)
+    else "Not enough data"
+    )
 
     ma20_display = (
         f"{latest_ma20:.2f}"
@@ -82,7 +90,7 @@ if analyze_button:
         else "Not enough data"
     )
 
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
 
     col1.metric(
         "Current Price",
@@ -103,6 +111,11 @@ if analyze_button:
     col4.metric(
         "MA50",
         ma50_display,
+    )
+
+    col5.metric(
+    "RSI (14)",
+    rsi_display
     )
 
     if chart_type == "Candlestick":
@@ -129,4 +142,14 @@ if analyze_button:
     st.plotly_chart(
         volume_chart,
         use_container_width=True,
+    )
+
+    rsi_chart = create_rsi_chart(
+       data,
+       clean_ticker
+    )
+
+    st.plotly_chart(
+       rsi_chart,
+       use_container_width=True
     )
