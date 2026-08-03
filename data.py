@@ -1,5 +1,5 @@
 import yfinance as yf
-
+import streamlit as st
 
 def get_stock_data(ticker: str, period: str = "6mo"):
     ticker = ticker.strip().upper()

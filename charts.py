@@ -89,7 +89,7 @@ def create_volume_chart(data, ticker):
         go.Bar(
             x=data.index,
             y=data["Volume"],
-            name="Volume"
+            name="Trading Volume",
         )
     )
 
@@ -97,7 +97,8 @@ def create_volume_chart(data, ticker):
         title=f"{ticker} Trading Volume",
         xaxis_title="Date",
         yaxis_title="Volume",
-        hovermode="x unified"
+        hovermode="x unified",
+        showlegend=False,
     )
 
     return fig

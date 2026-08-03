@@ -16,8 +16,11 @@ st.set_page_config(
     layout="wide",
 )
 
-st.title("StockScope")
-st.caption("Interactive stock market analysis dashboard")
+st.title("📈 StockScope")
+st.caption(
+    "Explore historical prices, moving averages "
+    "and trading volume through an interactive dashboard."
+)
 
 ticker = st.text_input(
     "Ticker Symbol",
@@ -35,7 +38,11 @@ chart_type = st.selectbox(
     options=["Line", "Candlestick"],
 )
 
-analyze_button = st.button("Analyze Stock")
+analyze_button = st.button(
+    "Analyze Stock",
+    type="primary",
+    width="stretch",
+)
 
 if analyze_button:
     clean_ticker = ticker.strip().upper()
