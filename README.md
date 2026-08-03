@@ -8,6 +8,7 @@ StockScope is a stock market dashboard built with Python.
 
 ## Features
 
+<<<<<<< HEAD
 - Fetch stock data using Yahoo Finance API
 - Display latest closing price
 - Calculate daily price change
@@ -18,6 +19,17 @@ StockScope is a stock market dashboard built with Python.
 - Moving Average (50) 
 - Selectable analysis period
 - Responsive Streamlit dashboard
+- Fetch historical stock market data
+- Display the latest closing price
+- Calculate daily price and percentage changes
+- Visualize prices with interactive Plotly charts
+- Switch between line and candlestick charts
+- Display trading volume
+- Calculate 20-day moving average
+- Calculate 50-day moving average
+- Select the analysis period
+- Cache repeated market data requests
+- Use a responsive Streamlit dashboard
 
 ## Technologies
 
