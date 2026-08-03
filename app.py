@@ -2,7 +2,9 @@ import pandas as pd
 import streamlit as st
 
 from charts import (
+    create_bollinger_chart,
     create_candlestick_chart,
+    create_macd_chart,
     create_price_chart,
     create_rsi_chart,
     create_volume_chart,
@@ -247,3 +249,24 @@ if analyze_button:
         rsi_chart,
         width="stretch",
     )
+
+    bollinger_chart = create_bollinger_chart(
+    data,
+    clean_ticker,
+    )
+
+    st.plotly_chart(
+       bollinger_chart,
+       width="stretch",
+    )
+
+    macd_chart = create_macd_chart(
+       data,
+       clean_ticker,
+   )
+
+    st.plotly_chart(
+       macd_chart,
+       width="stretch",
+    )
+    

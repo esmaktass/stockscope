@@ -140,3 +140,97 @@ def create_rsi_chart(data, ticker):
     )
 
     return fig
+def create_bollinger_chart(data, ticker):
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Scatter(
+            x=data.index,
+            y=data["BB_Upper"],
+            mode="lines",
+            name="Upper Band",
+            line=dict(width=1),
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=data.index,
+            y=data["BB_Lower"],
+            mode="lines",
+            name="Lower Band",
+            line=dict(width=1),
+            fill="tonexty",
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=data.index,
+            y=data["Close"],
+            mode="lines",
+            name="Close Price",
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=data.index,
+            y=data["BB_Middle"],
+            mode="lines",
+            name="20-day Middle Band",
+        )
+    )
+
+    fig.update_layout(
+        title=f"{ticker} Bollinger Bands",
+        xaxis_title="Date",
+        yaxis_title="Price",
+        hovermode="x unified",
+    )
+
+    return fig
+
+
+def create_macd_chart(data, ticker):
+    fig = go.Figure()
+
+    fig.add_trace(
+        go.Bar(
+            x=data.index,
+            y=data["MACD_Histogram"],
+            name="MACD Histogram",
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=data.index,
+            y=data["MACD"],
+            mode="lines",
+            name="MACD",
+        )
+    )
+
+    fig.add_trace(
+        go.Scatter(
+            x=data.index,
+            y=data["MACD_Signal"],
+            mode="lines",
+            name="Signal",
+        )
+    )
+
+    fig.add_hline(
+        y=0,
+        line_dash="dash",
+    )
+
+    fig.update_layout(
+        title=f"{ticker} MACD",
+        xaxis_title="Date",
+        yaxis_title="MACD",
+        hovermode="x unified",
+    )
+
+    return fig
