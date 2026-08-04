@@ -26,19 +26,60 @@ def get_company_info(ticker: str):
 
     try:
         info = stock.info
+
+        # Eğer info boş dönerse fast_info'yu da dene
+        fast_info = {}
+
+        try:
+            fast_info = stock.fast_info
+        except Exception:
+            pass
+
     except Exception:
         return {}
 
     return {
-        "name": info.get("longName") or info.get("shortName") or ticker,
+        "name": (
+            info.get("longName")
+            or info.get("shortName")
+            or ticker
+        ),
+
         "sector": info.get("sector"),
+
         "industry": info.get("industry"),
-        "currency": info.get("currency"),
-        "market_cap": info.get("marketCap"),
-        "trailing_pe": info.get("trailingPE"),
-        "forward_pe": info.get("forwardPE"),
-        "eps": info.get("trailingEps"),
-        "beta": info.get("beta"),
-        "dividend_yield": info.get("dividendYield"),
-        "website": info.get("website"),
+
+        "currency": (
+            info.get("currency")
+            or fast_info.get("currency")
+        ),
+
+        "market_cap": (
+            info.get("marketCap")
+            or fast_info.get("market_cap")
+        ),
+
+        "trailing_pe": (
+            info.get("trailingPE")
+        ),
+
+        "forward_pe": (
+            info.get("forwardPE")
+        ),
+
+        "eps": (
+            info.get("trailingEps")
+        ),
+
+        "beta": (
+            info.get("beta")
+        ),
+
+        "dividend_yield": (
+            info.get("dividendYield")
+        ),
+
+        "website": (
+            info.get("website")
+        ),
     }
