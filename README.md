@@ -4,6 +4,12 @@ An interactive stock market analysis dashboard built with **Python** and **Strea
 
 StockScope combines **technical analysis**, **company fundamentals**, **financial statement analysis**, and **multi-stock comparison** into a single modern dashboard. It is designed to help investors explore historical market data, evaluate company performance, and compare stocks through interactive visualizations.
 
+## 🔗 Links
+
+- 🌐 Live Demo: https://stockscope.streamlit.app
+- 💻 Source Code: https://github.com/esmaktass/stockscope
+- 📧 Contact: (istersen e-posta veya LinkedIn)
+
 ---
 
 ## 🚀 Features
@@ -62,8 +68,8 @@ StockScope combines **technical analysis**, **company fundamentals**, **financia
 
 ### Main Dashboard
 
-![Dashboard](assets/dashboard.png)
-
+![Dashboard](assets/dashboard1.png)
+![Dashboard](assets/dashboard3.png)
 ---
 
 ## 🛠️ Tech Stack
