@@ -51,11 +51,27 @@ StockScope is a stock market dashboard built with Python.
 - Pandas
 - yfinance
 
-## Planned Features
+## Installation
 
-- RSI indicator
-- MACD indicator
-- Bollinger Bands
-- Multiple stock comparison
-- Company fundamentals
-- Portfolio tracking
+git clone https://github.com/esmaktass/stockscope.git
+cd stockscope
+
+python -m venv .venv
+.venv\Scripts\activate
+
+pip install -r requirements.txt
+streamlit run app.py
+
+## Project Structure
+
+stockscope/
+├── app.py
+├── charts.py
+├── comparison.py
+├── data.py
+├── financials.py
+├── indicators.py
+├── insights.py
+├── requirements.txt
+├── assets/
+└── README.md
