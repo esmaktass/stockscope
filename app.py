@@ -18,6 +18,7 @@ from comparison import (
 from data import get_company_info, get_stock_data
 from indicators import calculate_indicators
 from insights import build_market_insights
+from financials import render_financial_analysis
 
 
 def format_large_number(value):
@@ -508,10 +509,15 @@ st.caption(
     "through an interactive dashboard."
 )
 
-single_stock_tab, comparison_tab = st.tabs(
+(
+    single_stock_tab,
+    comparison_tab,
+    financials_tab,
+) = st.tabs(
     [
         "Single Stock Analysis",
         "Compare Stocks",
+        "Financial Statements",
     ]
 )
 
@@ -520,3 +526,6 @@ with single_stock_tab:
 
 with comparison_tab:
     render_stock_comparison()
+
+with financials_tab:
+    render_financial_analysis()
