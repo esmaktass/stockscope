@@ -8,7 +8,6 @@ StockScope is a stock market dashboard built with Python.
 
 ## Features
 
-<<<<<<< HEAD
 - Fetch stock data using Yahoo Finance API
 - Display latest closing price
 - Calculate daily price change
@@ -41,6 +40,10 @@ StockScope is a stock market dashboard built with Python.
 - Identify the best-performing stock
 - Generate explainable rule-based technical market summaries
 - Classify the technical outlook as bullish, bearish or neutral
+- Display annual income statements, balance sheets and cash flow statements
+- Visualize revenue, net income and cash flow trends
+- Calculate annual revenue and net income growth
+- Summarize revenue, assets, debt and free cash flow
 
 ## Technologies
 
