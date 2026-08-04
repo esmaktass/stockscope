@@ -6,9 +6,9 @@ StockScope combines **technical analysis**, **company fundamentals**, **financia
 
 ## 🔗 Links
 
-- 🌐 Live Demo: https://stockscope.streamlit.app
+- 🌐 Live Demo: https://stockscope-d9mqfsctknm7n2iyiz3yha.streamlit.app/
 - 💻 Source Code: https://github.com/esmaktass/stockscope
-- 📧 Contact: (istersen e-posta veya LinkedIn)
+- 📧 Contact: esmanuraktas11@gmail.com
 
 ---
 
