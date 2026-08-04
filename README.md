@@ -1,70 +1,89 @@
-# StockScope
+# 📈 StockScope
 
-StockScope is a stock market dashboard built with Python.
+An interactive stock market analysis dashboard built with **Python** and **Streamlit**.
 
-## Screenshot
+StockScope combines **technical analysis**, **company fundamentals**, **financial statement analysis**, and **multi-stock comparison** into a single modern dashboard. It is designed to help investors explore historical market data, evaluate company performance, and compare stocks through interactive visualizations.
 
-![StockScope Dashboard](assets/dashboard.png)
+---
 
-## Features
+## 🚀 Features
 
-- Fetch stock data using Yahoo Finance API
-- Display latest closing price
-- Calculate daily price change
-- Calculate daily percentage change
-- Historical stock data
-- Interactive Plotly charts
-- Moving Average (20)
-- Moving Average (50) 
-- Selectable analysis period
-- Responsive Streamlit dashboard
-- Fetch historical stock market data
-- Display the latest closing price
-- Calculate daily price and percentage changes
-- Visualize prices with interactive Plotly charts
-- Switch between line and candlestick charts
-- Display trading volume
-- Calculate 20-day moving average
-- Calculate 50-day moving average
-- Select the analysis period
-- Cache repeated market data requests
-- Use a responsive Streamlit dashboard
-- Display company name, sector and industry
-- Show market capitalization, P/E, EPS, beta and dividend yield
-- Display ticker currency in price metrics
-- Visualize Bollinger Bands
-- Calculate MACD, signal line and histogram
-- Compare up to five stocks in one dashboard
-- Normalize prices for relative performance analysis
-- Calculate total return and annualized volatility
-- Identify the best-performing stock
-- Generate explainable rule-based technical market summaries
-- Classify the technical outlook as bullish, bearish or neutral
-- Display annual income statements, balance sheets and cash flow statements
-- Visualize revenue, net income and cash flow trends
-- Calculate annual revenue and net income growth
-- Summarize revenue, assets, debt and free cash flow
+### 📊 Technical Analysis
 
-## Technologies
+- Historical market data from Yahoo Finance
+- Interactive Line Chart
+- Interactive Candlestick Chart
+- Trading Volume Analysis
+- Moving Average (MA20)
+- Moving Average (MA50)
+- Relative Strength Index (RSI)
+- MACD Indicator
+- Bollinger Bands
 
-- Python
-- Pandas
-- yfinance
+### 🏢 Company Fundamentals
 
-## Installation
+- Company Profile
+- Sector & Industry
+- Market Capitalization
+- P/E Ratio
+- Earnings Per Share (EPS)
+- Beta
+- Dividend Yield
 
-git clone https://github.com/esmaktass/stockscope.git
-cd stockscope
+### 📈 Financial Statements
 
-python -m venv .venv
-.venv\Scripts\activate
+- Income Statement
+- Balance Sheet
+- Cash Flow Statement
+- Revenue Trend
+- Net Income Trend
+- Revenue Growth
+- Net Income Growth
+- Free Cash Flow
 
-pip install -r requirements.txt
-streamlit run app.py
+### 📊 Stock Comparison
 
-## Project Structure
+- Compare up to 5 stocks
+- Normalized Performance Chart
+- Total Return Comparison
+- Annualized Volatility
+- Best Performing Stock
 
+### 🤖 Technical Market Insights
+
+- Rule-based market summary
+- Bullish / Bearish / Neutral classification
+- Technical score
+- Explainable investment insights
+
+---
+
+## 🖼️ Dashboard Preview
+
+### Main Dashboard
+
+![Dashboard](assets/dashboard.png)
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technology |
+|-----------|------------|
+| Language | Python |
+| UI | Streamlit |
+| Data | Pandas |
+| Numerical Computing | NumPy |
+| Visualization | Plotly |
+| Market Data | Yahoo Finance (yfinance) |
+
+---
+
+## 📂 Project Structure
+
+```text
 stockscope/
+│
 ├── app.py
 ├── charts.py
 ├── comparison.py
@@ -74,4 +93,89 @@ stockscope/
 ├── insights.py
 ├── requirements.txt
 ├── assets/
-└── README.md
+│   └── dashboard.png
+├── README.md
+└── .gitignore
+```
+
+---
+
+## ⚙️ Installation
+
+Clone the repository
+
+```bash
+git clone https://github.com/esmaktass/stockscope.git
+cd stockscope
+```
+
+Create a virtual environment
+
+```bash
+python -m venv .venv
+```
+
+Activate the environment
+
+### Windows
+
+```bash
+.venv\Scripts\activate
+```
+
+Install dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+Run the application
+
+```bash
+streamlit run app.py
+```
+
+---
+
+## 📌 Current Capabilities
+
+✔ Technical Indicators
+
+✔ Company Fundamentals
+
+✔ Financial Statement Analysis
+
+✔ Multi-stock Comparison
+
+✔ Technical Market Insights
+
+✔ Interactive Charts
+
+---
+
+## 🚧 Future Improvements
+
+- Portfolio Tracking
+- Watchlist
+- News Integration
+- Analyst Recommendations
+- Portfolio Optimization
+- AI-powered Company Summary
+- Risk Analysis
+- Export Reports (PDF)
+
+---
+
+## 📄 License
+
+This project is developed for educational and portfolio purposes.
+
+---
+
+## 👩‍💻 Author
+
+**Esma Nur Aktaş**
+
+Statistics Student
+
+Data Science • Quantitative Finance • AI • Software Development
